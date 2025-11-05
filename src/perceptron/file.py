@@ -19,7 +19,7 @@ class Perceptron:
             self.predictions = []
             
             for xi, target in zip(features, targets):
-                predicted = self.predicted(xi)
+                predicted = self.predict(xi)
                 update = self.eta * (target - predicted)
                 
                 self.predictions.append(predicted)
@@ -28,15 +28,15 @@ class Perceptron:
        
         return self
     
-    def predicted(self, x):
-        z = self.network_input(x)
-        print(z)
-        return np.where(z >= 0.0, 1, 0)
-    
     def predict(self, x):
         predict_list = []
-        for row in x:
-            z = self.network_input(row)
-            predict_list.append(np.where(z >= 0.0, 1, 0))
+    
+        if(isinstance(x, list)):
+            for row in x:
+                z = self.network_input(row)
+                predict_list.append(np.where(z >= 0.0, 1, 0))
+        else: 
+            z = self.network_input(x)
+            return np.where(z >= 0.0, 1, 0)
         return predict_list
         
