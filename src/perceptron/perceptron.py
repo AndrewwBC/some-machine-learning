@@ -14,3 +14,6 @@ class Perceptron:
     def network_input(self, xi):
         return np.dot(xi, self.weights) + self.bias
     
+    def predict(self, x):
+        z = self.network_input(x)
+        return np.where(z >= 0.0, 1, 0)
