@@ -1,7 +1,4 @@
 import numpy as np
-from sklearn import datasets
-import pandas as pd
-from sklearn.metrics import accuracy_score
 
 class Perceptron:
     
@@ -14,19 +11,21 @@ class Perceptron:
         return np.dot(self.weights, feature) + self.bias
     
     def fit(self, features, targets):
-        eta = 0.1
-        rgen = np.random.RandomState(42)
+        rgen = np.random.RandomState(self.random_state)
         self.weights = rgen.normal(loc=0.0, scale=0.01, size=features.shape[1])
         self.bias = rgen.random()
         
         for _ in range(self.n_iter):
-            
+            self.predictions = []
             for xi, target in zip(features, targets):
                 predicted = self.predict(xi)
-                update = eta * (target - predicted)
+                update = self.eta * (target - predicted)
+                self.predictions.append(predicted)
                 self.weights += update *  xi
                 self.bias += update
+       
         return self
+    
     def predict(self, x):
         z = self.network_input(x)
         return np.where(z >= 0.0, 1, 0)
