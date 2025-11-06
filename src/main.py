@@ -1,9 +1,8 @@
 from sklearn import datasets
-import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import accuracy_score
-from perceptron import file
+from adaline import file
 
 iris = datasets.load_iris()
 
@@ -19,9 +18,9 @@ scaler.fit(features_train)
 features_train_std = scaler.transform(features_train)
 features_test_std = scaler.transform(features_test)
 
-perceptron = file.Perceptron()
-perceptron.fit(features_train_std, target_train)
+adaline = file.Adaline()
+adaline.fit(features_train_std, target_train)
 
-predicted = perceptron.predict(features_test_std)
+predicted = adaline.predict(features_test_std)
 acc = accuracy_score(target_test, predicted)
 print(acc)
